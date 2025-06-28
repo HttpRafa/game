@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj3weibak88mv"]
+[gd_scene load_steps=8 format=3 uid="uid://cj3weibak88mv"]
 
 [ext_resource type="Texture2D" uid="uid://bqu6t57liwtyn" path="res://textures/levels/testing/ground.png" id="1_whlnt"]
 
@@ -13,6 +13,18 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_whlnt")
 size = Vector2(50, 50)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_whlnt"]
+size = Vector3(5, 1.65, 1.65)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1vqv"]
+albedo_color = Color(0.0941176, 1, 1, 1)
+albedo_texture = ExtResource("1_whlnt")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_i1vqv"]
+material = SubResource("StandardMaterial3D_i1vqv")
+size = Vector3(5, 1.65, 1.65)
+
 [node name="Testing" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -22,3 +34,42 @@ shape = SubResource("WorldBoundaryShape3D_ruw1x")
 
 [node name="Mesh" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("PlaneMesh_ruw1x")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.944112, 0, -0.329625, 0, 1, 0, 0.329625, 0, 0.944112, 0, 0.683888, 6.91738)
+
+[node name="Collider" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_whlnt")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("BoxMesh_i1vqv")
+skeleton = NodePath("../../Wall2")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(0.811013, 0, -0.585028, 0, 1, 0, 0.585028, 0, 0.811013, 10.9081, 0.661462, -2.92492)
+
+[node name="Collider" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_whlnt")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("BoxMesh_i1vqv")
+skeleton = NodePath("../../Wall3")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.392819, 0, -0.919616, 0, 1, 0, 0.919616, 0, -0.392819, -8.12943, 0.579829, -1.00432)
+
+[node name="Collider" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("BoxShape3D_whlnt")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall4"]
+mesh = SubResource("BoxMesh_i1vqv")
+skeleton = NodePath("../../Wall4")
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.746771, -9.8423)
+
+[node name="Collider" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_whlnt")
+
+[node name="Mesh" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("BoxMesh_i1vqv")

@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvmih6ooia6pd"]
+[gd_scene load_steps=4 format=3 uid="uid://bvmih6ooia6pd"]
 
 [ext_resource type="Script" uid="uid://bhv6tn34nhkaq" path="res://scripts/entities/targeting/Target.cs" id="1_6kpif"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kpif"]
+albedo_color = Color(1, 1, 0.0117647, 1)
+emission_enabled = true
+emission = Color(0.744097, 0.74393, 3.85046e-07, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_6ncj0"]
-size = Vector3(0.5, 0.5, 0.5)
+material = SubResource("StandardMaterial3D_6kpif")
+size = Vector3(0.25, 0.1, 0.25)
 
 [node name="Target" type="Node3D"]
 script = ExtResource("1_6kpif")

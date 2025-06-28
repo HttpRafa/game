@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cj3weibak88mv" path="res://scenes/levels/testing.tscn" id="2_rwgxs"]
 
 [sub_resource type="Environment" id="Environment_e5uuo"]
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
 
 [node name="World" type="Node3D"]
 
@@ -13,11 +17,13 @@
 environment = SubResource("Environment_e5uuo")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.999797, -0.0141395, 0.0143886, 0.00304845, 0.810958, 0.585096, -0.0199416, -0.584933, 0.810836, 0, 0, 0)
+transform = Transform3D(0.999797, -0.0141395, 0.0143887, -0.00367962, 0.573471, 0.819218, -0.0198348, -0.819104, 0.573302, 0, 0, 0)
 light_energy = 0.75
+shadow_enabled = true
 
-[node name="LocalPlayer" parent="." instance=ExtResource("1_nnsk1")]
+[node name="LocalPlayer" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("1_nnsk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32517, 0)
+_target = NodePath("../Target")
 
 [node name="Target" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("2_k0juu")]
 _camera = NodePath("../Level/Camera")
@@ -25,7 +31,7 @@ _camera = NodePath("../Level/Camera")
 [node name="Level" type="Node3D" parent="."]
 
 [node name="Camera" type="Camera3D" parent="Level" node_paths=PackedStringArray("_player", "_target")]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 15, 3)
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 15, 4.5)
 script = ExtResource("2_4wyf3")
 _player = NodePath("../../LocalPlayer")
 _target = NodePath("../../Target")

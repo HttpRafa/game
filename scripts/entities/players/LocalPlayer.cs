@@ -1,14 +1,34 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 
 public partial class LocalPlayer : CharacterBody3D
 {
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+
+	[ExportGroup("Targeting")]
+	[Export]
+	private Node3D _target;
+
+	[ExportGroup("Movement")]
+	[Export]
+	private float _speed = 5.0f;
+	[Export]
+	private float _jumpVelocity = 4.5f; 
 
 	public override void _Process(double delta)
 	{
-		Vector3 velocity = Velocity;
+		var velocity = Velocity;
+		var rotation = Rotation;
+
+		// Rotate the player to face the target.
+		if (_target != null)
+		{
+			Vector3 targetDirection = (_target.GlobalPosition - GlobalPosition).Normalized();
+			if (targetDirection != Vector3.Zero)
+			{
+				rotation.Y = Mathf.Atan2(targetDirection.X, targetDirection.Z);
+			}
+		}
 
 		// Add the gravity.
 		if (!IsOnFloor())
@@ -17,27 +37,28 @@ public partial class LocalPlayer : CharacterBody3D
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			velocity.Y = JumpVelocity;
+			velocity.Y = _jumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		Vector2 inputDir = Input.GetVector("left", "right", "up", "down");
+		Vector3 direction = new Vector3(inputDir.X, 0, inputDir.Y).Normalized();
 		if (direction != Vector3.Zero)
 		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
+			velocity.X = direction.X * _speed;
+			velocity.Z = direction.Z * _speed;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, _speed);
 		}
 
 		Velocity = velocity;
+		Rotation = rotation;
 		MoveAndSlide();
 	}
 }

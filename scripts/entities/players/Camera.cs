@@ -12,9 +12,9 @@ public partial class Camera : Camera3D
 
 	[ExportGroup("Positioning")]
 	[Export]
-	private Vector3 _offset = new(0, 15, 3);
+	private Vector3 _offset = new(0, 15, 4.5f);
 	[Export]
-	private float _vectorMagnitude = 0.20f;
+	private float _vectorMagnitude = 0.15f;
 	[Export]
 	private float _speed = 4.0f;
 

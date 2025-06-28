@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3cmdpxcy8d5f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xoawd"]
+size = Vector3(0.075, 0.075, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xoawd"]
+albedo_color = Color(1, 0.054902, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6mwtq"]
+material = SubResource("StandardMaterial3D_xoawd")
+size = Vector3(0.03, 0.2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u7wkp"]
+size = Vector3(0.05, 0.2, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u7wkp"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6mwtq"]
+material = SubResource("StandardMaterial3D_u7wkp")
+radius = 0.025
+height = 0.1
+
+[node name="AssaultRifle" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Main" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xoawd")
+
+[node name="Magazine" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -2.22045e-15, 7.10543e-15, 0, 0.997188, 0.0749438, -7.10543e-15, -0.0749438, 0.997188, 0, -0.0918377, -0.0589339)
+mesh = SubResource("BoxMesh_6mwtq")
+skeleton = NodePath("../Handle")
+
+[node name="Handle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.959107, -0.283045, 0, 0.283045, 0.959107, 0, -0.0826753, -0.247778)
+mesh = SubResource("BoxMesh_u7wkp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 7.10543e-15, -4.23516e-22, 0, -4.37114e-08, -1, -7.10543e-15, 1, -4.37114e-08, 2.79976e-08, 0, 0.320256)
+mesh = SubResource("CapsuleMesh_6mwtq")

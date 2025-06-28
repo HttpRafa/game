@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cj3weibak88mv" path="res://scenes/levels/testing.tscn" id="2_rwgxs"]
 
 [sub_resource type="Environment" id="Environment_e5uuo"]
+background_energy_multiplier = 0.0
+ambient_light_energy = 0.0
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_enabled = true
@@ -18,6 +20,7 @@ environment = SubResource("Environment_e5uuo")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999797, -0.0141395, 0.0143887, -0.00367962, 0.573471, 0.819218, -0.0198348, -0.819104, 0.573302, 0, 0, 0)
+visible = false
 light_energy = 0.75
 shadow_enabled = true
 

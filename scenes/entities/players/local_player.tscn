@@ -1,14 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0741j0veween"]
+[gd_scene load_steps=6 format=3 uid="uid://c0741j0veween"]
 
 [ext_resource type="PackedScene" uid="uid://bj4tw3wr820ka" path="res://scenes/entities/players/remote_player.tscn" id="1_eg1ah"]
 [ext_resource type="Script" uid="uid://hbggqdwygde3" path="res://scripts/entities/players/LocalPlayer.cs" id="1_pvmhi"]
+[ext_resource type="Script" uid="uid://bg587mqkebo8j" path="res://scripts/entities/players/Weapon.cs" id="3_h74p0"]
+[ext_resource type="PackedScene" uid="uid://bwkvimgkwmeb6" path="res://scenes/entities/projectile.tscn" id="4_0tvn7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_svl2g"]
 
-[node name="LocalPlayer" type="CharacterBody3D"]
+[node name="LocalPlayer" type="CharacterBody3D" node_paths=PackedStringArray("_weapon")]
 script = ExtResource("1_pvmhi")
-
-[node name="RemotePlayer" parent="." instance=ExtResource("1_eg1ah")]
+_weapon = NodePath("RemotePlayer/Weapon")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_svl2g")
+
+[node name="Light" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0)
+spot_range = 30.0
+spot_attenuation = 0.25
+
+[node name="RemotePlayer" parent="." instance=ExtResource("1_eg1ah")]
+
+[node name="Weapon" parent="RemotePlayer" index="1" node_paths=PackedStringArray("_spawnPoint")]
+script = ExtResource("3_h74p0")
+_spawnPoint = NodePath("AssaultRifle/ProjectileSpawn")
+_projectileScene = ExtResource("4_0tvn7")
+
+[editable path="RemotePlayer"]

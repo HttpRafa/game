@@ -8,15 +8,19 @@ public partial class LocalPlayer : CharacterBody3D
 	[ExportGroup("Targeting")]
 	[Export]
 	private Node3D _target;
+	[Export]
+	private Node3D _weapon;
 
 	[ExportGroup("Movement")]
 	[Export]
 	private float _speed = 5.0f;
 	[Export]
-	private float _jumpVelocity = 4.5f; 
+	private float _jumpVelocity = 4.5f;
 
 	public override void _Process(double delta)
 	{
+		_weapon.LookAt(_target.GlobalPosition + new Vector3(0, 0.25f, 0), Vector3.Up, useModelFront: true);
+
 		var velocity = Velocity;
 		var rotation = Rotation;
 

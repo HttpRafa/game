@@ -16,11 +16,13 @@ size = Vector3(0.5, 0.1, 0.1)
 [node name="Body" type="Node3D" parent="."]
 
 [node name="Mesh" type="MeshInstance3D" parent="Body"]
+layers = 16
 mesh = SubResource("CapsuleMesh_4n3jf")
 skeleton = NodePath("../..")
 
 [node name="Face" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+layers = 16
 mesh = SubResource("BoxMesh_4n3jf")
 skeleton = NodePath("../..")
 

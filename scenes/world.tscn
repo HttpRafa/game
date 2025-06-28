@@ -9,20 +9,28 @@
 background_energy_multiplier = 0.0
 ambient_light_energy = 0.0
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
+volumetric_fog_density = 0.0025
 
 [node name="World" type="Node3D"]
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e5uuo")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.999797, -0.0141395, 0.0143887, -0.00367962, 0.573471, 0.819218, -0.0198348, -0.819104, 0.573302, 0, 0, 0)
-visible = false
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.999796, -0.0141395, 0.0143887, -0.00969496, 0.288713, 0.957367, -0.0176909, -0.957311, 0.288517, 0, 15, 4.5)
 light_energy = 0.75
-shadow_enabled = true
+light_cull_mask = 4294966288
+
+[node name="TopSun" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+layers = 8
+light_energy = 0.75
+light_cull_mask = 4294966280
 
 [node name="LocalPlayer" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("1_nnsk1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32517, 0)

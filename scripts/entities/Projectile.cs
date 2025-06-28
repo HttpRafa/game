@@ -23,7 +23,9 @@ public partial class Projectile : Area3D
 
 	private void OnBodyEntered(Node3D body)
 	{
-		// Optionally, you can queue the projectile for deletion after a collision
+		if (body is LocalPlayer)
+			return; // Ignore collisions with the player
+			
 		QueueFree();
 	}
 

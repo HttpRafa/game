@@ -13,9 +13,7 @@ public partial class LocalPlayer : CharacterBody3D
 
 	[ExportGroup("Movement")]
 	[Export]
-	private float _speed = 5.0f;
-	[Export]
-	private float _jumpVelocity = 4.5f;
+	private float _speed = 7.5f;
 
 	public override void _Process(double delta)
 	{
@@ -38,12 +36,6 @@ public partial class LocalPlayer : CharacterBody3D
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
-		}
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
-		{
-			velocity.Y = _jumpVelocity;
 		}
 
 		// Get the input direction and handle the movement/deceleration.

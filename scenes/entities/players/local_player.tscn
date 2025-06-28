@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0741j0veween"]
+
+[ext_resource type="PackedScene" uid="uid://bj4tw3wr820ka" path="res://scenes/entities/players/remote_player.tscn" id="1_eg1ah"]
+[ext_resource type="Script" uid="uid://hbggqdwygde3" path="res://scripts/entities/players/LocalPlayer.cs" id="1_pvmhi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_svl2g"]
+
+[node name="LocalPlayer" type="CharacterBody3D"]
+script = ExtResource("1_pvmhi")
+
+[node name="RemotePlayer" parent="." instance=ExtResource("1_eg1ah")]
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_svl2g")

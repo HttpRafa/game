@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj4tw3wr820ka"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n3jf"]
+albedo_color = Color(0.211236, 0.49144, 0.411171, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4n3jf"]
+material = SubResource("StandardMaterial3D_4n3jf")
+
+[node name="RemotePlayer" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4n3jf")

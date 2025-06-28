@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvmih6ooia6pd"]
+
+[ext_resource type="Script" uid="uid://bhv6tn34nhkaq" path="res://scripts/entities/targeting/Target.cs" id="1_6kpif"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ncj0"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Target" type="Node3D"]
+script = ExtResource("1_6kpif")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6ncj0")

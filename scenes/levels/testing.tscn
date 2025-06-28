@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj3weibak88mv"]
+
+[ext_resource type="Texture2D" uid="uid://bqu6t57liwtyn" path="res://textures/levels/testing/ground.png" id="1_whlnt"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ruw1x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whlnt"]
+albedo_texture = ExtResource("1_whlnt")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ruw1x"]
+material = SubResource("StandardMaterial3D_whlnt")
+size = Vector2(50, 50)
+
+[node name="Testing" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="Collider" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_ruw1x")
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ruw1x")

@@ -22,6 +22,21 @@ public partial class Camera : Camera3D
 	[Export]
 	private Camera3D _targetCamera;
 
+	public override void _Ready()
+	{
+		if (_player == null)
+		{
+			GD.PrintErr("Player node is not set for Camera.");
+		}
+		if (_target == null)
+		{
+			GD.PrintErr("Target node is not set for Camera.");
+		}
+		if (_targetCamera == null)
+		{
+			GD.PrintErr("Target camera node is not set for Camera.");
+		}
+	}
 
 	public override void _Process(double delta)
 	{

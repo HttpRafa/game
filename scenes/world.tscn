@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1oaxjr2uur56"]
+[gd_scene load_steps=7 format=3 uid="uid://d1oaxjr2uur56"]
 
+[ext_resource type="Script" uid="uid://u71ivkxdfrie" path="res://scripts/game/World.cs" id="1_71j4m"]
 [ext_resource type="PackedScene" uid="uid://c0741j0veween" path="res://scenes/entities/players/local_player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://bdsa5pwn7yf52" path="res://scripts/entities/players/Camera.cs" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://bvmih6ooia6pd" path="res://scenes/entities/targeting/target.tscn" id="2_k0juu"]
@@ -14,10 +15,43 @@ glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0025
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("_localPlayer", "_levelRoot")]
+script = ExtResource("1_71j4m")
+_localPlayer = NodePath("Player")
+_levelRoot = NodePath("Level")
+_levels = Array[PackedScene]([ExtResource("2_rwgxs")])
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e5uuo")
+
+[node name="Player" type="Node3D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="TargetSubview" type="SubViewportContainer" parent="Player/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Player/CanvasLayer/TargetSubview"]
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 2
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="TargetCamera" type="Camera3D" parent="Player/CanvasLayer/TargetSubview/SubViewport"]
+cull_mask = 1048064
+
+[node name="LocalPlayer" parent="Player" node_paths=PackedStringArray("_target") instance=ExtResource("1_nnsk1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32517, 0)
+_target = NodePath("../Target")
+
+[node name="Target" parent="Player" node_paths=PackedStringArray("_camera") instance=ExtResource("2_k0juu")]
+_camera = NodePath("../../Level/Camera")
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -32,40 +66,12 @@ layers = 520
 light_energy = 0.75
 light_cull_mask = 4294966792
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TargetSubview" type="SubViewportContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/TargetSubview"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
-
-[node name="TargetCamera" type="Camera3D" parent="CanvasLayer/TargetSubview/SubViewport"]
-cull_mask = 1048064
-
-[node name="LocalPlayer" parent="." node_paths=PackedStringArray("_target") instance=ExtResource("1_nnsk1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32517, 0)
-_target = NodePath("../Target")
-
-[node name="Target" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("2_k0juu")]
-_camera = NodePath("../Level/Camera")
-
 [node name="Level" type="Node3D" parent="."]
 
 [node name="Camera" type="Camera3D" parent="Level" node_paths=PackedStringArray("_player", "_target", "_targetCamera")]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 15, 4.5)
 cull_mask = 1048063
 script = ExtResource("2_4wyf3")
-_player = NodePath("../../LocalPlayer")
-_target = NodePath("../../Target")
-_targetCamera = NodePath("../../CanvasLayer/TargetSubview/SubViewport/TargetCamera")
-
-[node name="Testing" parent="Level" instance=ExtResource("2_rwgxs")]
+_player = NodePath("../../Player/LocalPlayer")
+_target = NodePath("../../Player/Target")
+_targetCamera = NodePath("../../Player/CanvasLayer/TargetSubview/SubViewport/TargetCamera")

@@ -1,16 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvmih6ooia6pd"]
+[gd_scene load_steps=5 format=3 uid="uid://bvmih6ooia6pd"]
 
 [ext_resource type="Script" uid="uid://bhv6tn34nhkaq" path="res://scripts/entities/targeting/Target.cs" id="1_6kpif"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kpif"]
+albedo_color = Color(0.0656839, 0.619054, 0.487533, 1)
 emission_enabled = true
-emission = Color(1, 1, 1, 1)
-grow = true
-grow_amount = 0.01
+emission = Color(0.0666667, 0.619608, 0.486275, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_6kpif"]
 material = SubResource("StandardMaterial3D_6kpif")
-outer_radius = 0.6
+inner_radius = 0.6
+outer_radius = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_6kpif"]
+material = SubResource("StandardMaterial3D_6kpif")
+size = Vector3(0.3, 0.05, 0.15)
 
 [node name="Target" type="Node3D"]
 script = ExtResource("1_6kpif")
@@ -18,3 +22,26 @@ script = ExtResource("1_6kpif")
 [node name="Mesh" type="MeshInstance3D" parent="."]
 layers = 512
 mesh = SubResource("TorusMesh_6kpif")
+
+[node name="Inner1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_6kpif")
+
+[node name="Inner2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+layers = 512
+mesh = SubResource("BoxMesh_6kpif")
+skeleton = NodePath("../Inner3")
+
+[node name="Inner3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -0.5)
+layers = 512
+mesh = SubResource("BoxMesh_6kpif")
+skeleton = NodePath("../Inner4")
+
+[node name="Inner4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.00060503, 0.000221625, -1, 4.359e-05, 1, 0.000221603, 1, -4.3475e-05, -0.000605038, 0, 0, 0.5)
+layers = 512
+mesh = SubResource("BoxMesh_6kpif")
+skeleton = NodePath("../Inner1")

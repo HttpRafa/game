@@ -1,14 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0741j0veween"]
+[gd_scene load_steps=7 format=3 uid="uid://c0741j0veween"]
 
 [ext_resource type="PackedScene" uid="uid://bj4tw3wr820ka" path="res://scenes/entities/players/remote_player.tscn" id="1_eg1ah"]
 [ext_resource type="Script" uid="uid://hbggqdwygde3" path="res://scripts/entities/players/LocalPlayer.cs" id="1_pvmhi"]
-[ext_resource type="Script" uid="uid://bg587mqkebo8j" path="res://scripts/entities/players/Weapon.cs" id="3_h74p0"]
-[ext_resource type="PackedScene" uid="uid://bwkvimgkwmeb6" path="res://scenes/entities/projectile.tscn" id="4_0tvn7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_svl2g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0tvn7"]
-albedo_color = Color(0.0588235, 0.568627, 0.447059, 1)
+albedo_color = Color(0.0656839, 0.619054, 0.487533, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_0tvn7"]
 material = SubResource("StandardMaterial3D_0tvn7")
@@ -19,19 +17,14 @@ outer_radius = 0.75
 material = SubResource("StandardMaterial3D_0tvn7")
 size = Vector3(0.4, 0.4, 0.1)
 
-[node name="LocalPlayer" type="CharacterBody3D" node_paths=PackedStringArray("_weapon")]
+[node name="LocalPlayer" type="CharacterBody3D" node_paths=PackedStringArray("_weaponSystem")]
 script = ExtResource("1_pvmhi")
-_weapon = NodePath("RemotePlayer/Weapon")
+_weaponSystem = NodePath("RemotePlayer/WeaponSystem")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_svl2g")
 
 [node name="RemotePlayer" parent="." instance=ExtResource("1_eg1ah")]
-
-[node name="Weapon" parent="RemotePlayer" index="1" node_paths=PackedStringArray("_spawnPoint")]
-script = ExtResource("3_h74p0")
-_spawnPoint = NodePath("AssaultRifle/ProjectileSpawn")
-_projectileScene = ExtResource("4_0tvn7")
 
 [node name="Light" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj4tw3wr820ka"]
+[gd_scene load_steps=8 format=3 uid="uid://bj4tw3wr820ka"]
 
 [ext_resource type="PackedScene" uid="uid://d3cmdpxcy8d5f" path="res://scenes/weapons/assault_rifle.tscn" id="1_k8o0e"]
+[ext_resource type="Script" uid="uid://xiremixm4wix" path="res://scripts/entities/players/WeaponSystem.cs" id="1_pht36"]
+[ext_resource type="Script" uid="uid://bg587mqkebo8j" path="res://scripts/entities/weapons/Weapon.cs" id="3_sdc1c"]
+[ext_resource type="PackedScene" uid="uid://bwkvimgkwmeb6" path="res://scenes/entities/projectile.tscn" id="4_igpug"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n3jf"]
 albedo_color = Color(0.211236, 0.49144, 0.411171, 1)
@@ -26,11 +29,16 @@ layers = 16
 mesh = SubResource("BoxMesh_4n3jf")
 skeleton = NodePath("../..")
 
-[node name="Weapon" type="Node3D" parent="."]
+[node name="WeaponSystem" type="Node3D" parent="." node_paths=PackedStringArray("_weapons")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5431, 0.161756, 0.114027)
+script = ExtResource("1_pht36")
+_weapons = [NodePath("AssaultRifle")]
 
-[node name="AssaultRifle" parent="Weapon" instance=ExtResource("1_k8o0e")]
+[node name="AssaultRifle" parent="WeaponSystem" node_paths=PackedStringArray("_muzzle") instance=ExtResource("1_k8o0e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00136369, 0, 0)
+script = ExtResource("3_sdc1c")
+_muzzle = NodePath("Muzzle")
+_projectileScene = ExtResource("4_igpug")
 
-[node name="ProjectileSpawn" type="Node3D" parent="Weapon/AssaultRifle"]
+[node name="Muzzle" type="Node3D" parent="WeaponSystem/AssaultRifle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.30757)

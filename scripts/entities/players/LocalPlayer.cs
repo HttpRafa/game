@@ -9,7 +9,7 @@ public partial class LocalPlayer : CharacterBody3D
 	[Export]
 	private Node3D _target;
 	[Export]
-	private Node3D _weapon;
+	private Node3D _weaponSystem;
 
 	[ExportGroup("Movement")]
 	[Export]
@@ -18,11 +18,23 @@ public partial class LocalPlayer : CharacterBody3D
 	public override void _Ready()
 	{
 		Input.SetMouseMode(Input.MouseModeEnum.ConfinedHidden);
+
+		if (_target == null)
+		{
+			GD.PrintErr("Target node is not set for LocalPlayer.");
+		}
+		if (_weaponSystem == null)
+		{
+			GD.PrintErr("WeaponSystem node is not set for LocalPlayer.");
+		}
 	}
 
 	public override void _Process(double delta)
 	{
-		_weapon.LookAt(_target.GlobalPosition + new Vector3(0, 0.25f, 0), Vector3.Up, useModelFront: true);
+		if (_weaponSystem != null)
+		{
+			_weaponSystem.LookAt(_target.GlobalPosition + new Vector3(0, 0.25f, 0), Vector3.Up, useModelFront: true);	
+		}
 
 		var velocity = Velocity;
 		var rotation = Rotation;

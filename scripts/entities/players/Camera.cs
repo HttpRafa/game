@@ -18,10 +18,18 @@ public partial class Camera : Camera3D
 	[Export]
 	private float _speed = 4.0f;
 
+	[ExportGroup("Target Camera")]
+	[Export]
+	private Camera3D _targetCamera;
+
+
 	public override void _Process(double delta)
 	{
-		if (_player == null || _target == null)
+		if (_player == null || _target == null || _targetCamera == null)
 			return;
+
+		// Copy transform from the this camera to target camera
+		_targetCamera.GlobalTransform = GlobalTransform;
 
 		// Calculate the position to look at based on the target and player positions
 		var cameraLookAtPosition = (_target.GlobalPosition - _player.GlobalPosition) * _vectorMagnitude + _player.GlobalPosition;

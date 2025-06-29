@@ -15,6 +15,11 @@ public partial class LocalPlayer : CharacterBody3D
 	[Export]
 	private float _speed = 7.5f;
 
+	public override void _Ready()
+	{
+		Input.SetMouseMode(Input.MouseModeEnum.ConfinedHidden);
+	}
+
 	public override void _Process(double delta)
 	{
 		_weapon.LookAt(_target.GlobalPosition + new Vector3(0, 0.25f, 0), Vector3.Up, useModelFront: true);

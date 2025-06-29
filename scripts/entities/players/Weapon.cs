@@ -6,6 +6,8 @@ public partial class Weapon : Node3D
 
 	[ExportGroup("Spawning")]
 	[Export]
+	private int _ppm = 550; // Projectiles per minute
+	[Export]
 	private Node3D _spawnPoint;
 
 	[ExportGroup("Projectile")]
@@ -14,10 +16,16 @@ public partial class Weapon : Node3D
 	[Export]
 	private float _projectileSpeed = 40.0f;
 
+	private float _lastFireTime = 0.0f;
+
 	public override void _PhysicsProcess(double delta)
 	{
-		if (Input.IsActionJustPressed("fire"))
+		// Increment the last fire time
+		_lastFireTime += (float)delta;
+
+		if (Input.IsActionPressed("fire") && _lastFireTime >= (60.0f / _ppm))
 		{
+			_lastFireTime = 0.0f; // Reset the last fire time
 			if (_spawnPoint != null && _projectileScene != null)
 			{
 				// Create the projectile instance
